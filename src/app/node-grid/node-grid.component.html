@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+    <table>
+        <tr *ngFor="let row of grid">
+            <td *ngFor="let column of grid[0]">
+                <app-node></app-node>
+            </td>
+        </tr>
+    </table>
+</body>
+</html>
