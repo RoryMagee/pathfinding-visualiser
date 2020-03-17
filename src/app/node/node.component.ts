@@ -24,7 +24,7 @@ export class NodeComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
-
+    
   }
 
 
