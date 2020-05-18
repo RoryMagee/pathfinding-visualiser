@@ -8,10 +8,9 @@
     <table>
         <tr *ngFor="let row of grid">
             <td *ngFor="let column of grid[0]">
-                <app-node></app-node>
+                <div class="node" [id]="nodeType"></div>
             </td>
         </tr>
     </table>
 </body>
 </html>
-

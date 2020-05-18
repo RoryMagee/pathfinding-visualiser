@@ -14,8 +14,11 @@ export class NodeGridComponent implements OnInit {
     height = 25;
     width = 50;
     clickEventSubscription:Subscription;
+    startNodeSet: Boolean;
+    targetNodeSet: Boolean;
 
     constructor(private nodeDataService: NodeDataService) {
+
         this.grid = new Array<Array<NodeComponent>>();
         for (let x = 0; x < this.height; x++) {
             let row:NodeComponent[] = new Array<NodeComponent>();
