@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { NodeComponent } from '../node/node.component';
 import { NodeDataService } from '../node-data.service';
 import { Subscription } from 'rxjs';
-
 @Component({
     selector: 'app-node-grid',
     templateUrl: './node-grid.component.html',
@@ -10,31 +9,58 @@ import { Subscription } from 'rxjs';
 })
 export class NodeGridComponent implements OnInit {
 
-    grid: NodeComponent[][];
+    grid:String[][];
     height = 25;
     width = 50;
-    clickEventSubscription:Subscription;
+    resetGridSubscription:Subscription;
     startNodeSet: Boolean;
     targetNodeSet: Boolean;
 
     constructor(private nodeDataService: NodeDataService) {
 
-        this.grid = new Array<Array<NodeComponent>>();
+        this.grid = new Array<Array<String>>();
         for (let x = 0; x < this.height; x++) {
-            let row:NodeComponent[] = new Array<NodeComponent>();
+            let row:String[] = new Array<String>();
             for (let y = 0; y < this.width; y++) {
-                row.push(new NodeComponent(nodeDataService));
+                row.push('default-node');
             }
             this.grid.push(row);
         }
 
-        this.clickEventSubscription = this.nodeDataService.getClickEvent().subscribe(() => {
+        this.grid[12][15] = "start-node";
+        this.grid[12][35] = "target-node";
+
+        this.resetGridSubscription= this.nodeDataService.clickResetGrid().subscribe(() => {
             this.resetGrid();
         });
     }
+
+    update(i,j,$event) {
+        if($event.which === 1) {
+            if(this.grid[i][j] === 'default-node') {
+                this.grid[i][j] = 'path-node'
+            }
+        }
+    }
+
+
     
     resetGrid() {
-        console.log(this.grid);
+        for(let x = 0; x < this.height; x++) {
+            for(let y = 0; y < this.width; y++) {
+                this.grid[x][y] = "default-node";
+            }
+        }
+        this.grid[12][15] = "start-node";
+        this.grid[12][35] = "target-node";
+    }
+
+    findPath() {
+        alert("finding path");
+    }
+
+    createGraphFromArr() {
+
     }
 
     ngOnInit(): void {

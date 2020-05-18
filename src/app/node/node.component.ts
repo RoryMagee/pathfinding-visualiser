@@ -26,35 +26,33 @@ export class NodeComponent implements OnInit {
         }
     }
 
-    @HostListener('mouseup', ['$event']) setPoint($event) {
-        if ($event.which === 2) {
-            if (this.nodeType === "start-node") {
-                this.nodeType = 'default-node';
-                this.data.updateStartNode(false);
-            } else if (this.nodeType === 'target-node') {
-                this.nodeType = 'default-node';
-                this.data.updateTargetNode(false);
-            } else if (this.nodeType === 'default-node') {
-                if (this.startNodeSet === false) {
-                    this.nodeType = 'start-node';
-                    this.data.updateStartNode(true);
-                } else if (this.startNodeSet === true && this.targetNodeSet === false) {
-                    this.nodeType = 'target-node';
-                    this.data.updateTargetNode(true);
-                } else {
-                    console.log("start and target node already set");
-                }
-            }
-        }
-        console.log(this);
-    }
+    //@HostListener('mouseup', ['$event']) setPoint($event) {
+    //    if ($event.which === 2) {
+    //        if (this.nodeType === "start-node") {
+    //            this.nodeType = 'default-node';
+    //            this.data.updateStartNode(false);
+    //        } else if (this.nodeType === 'target-node') {
+    //            this.nodeType = 'default-node';
+    //            this.data.updateTargetNode(false);
+    //        } else if (this.nodeType === 'default-node') {
+    //            if (this.startNodeSet === false) {
+    //                this.nodeType = 'start-node';
+    //                this.data.updateStartNode(true);
+    //            } else if (this.startNodeSet === true && this.targetNodeSet === false) {
+    //                this.nodeType = 'target-node';
+    //                this.data.updateTargetNode(true);
+    //            } else {
+    //                console.log("start and target node already set");
+    //            }
+    //        }
+    //    }
+    //    console.log(this);
+    //}
 
     constructor(private data: NodeDataService) {
     }
 
     ngOnInit(): void{
-        this.data.startNodeSet.subscribe(status => this.startNodeSet = status);
-        this.data.targetNodeSet.subscribe(status => this.targetNodeSet = status);
     }
 
 

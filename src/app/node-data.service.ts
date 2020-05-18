@@ -7,25 +7,17 @@ import { BehaviorSubject, Observable, Subject } from 'rxjs';
 export class NodeDataService {
     private subject = new Subject<any>();
     sendClickEvent() {
+        console.log(this.subject);
         this.subject.next();
     }
 
-    getClickEvent(): Observable<any> {
+    clickResetGrid(): Observable<any> {
         return this.subject.asObservable();
     }
 
-    private startNodeSetSource = new BehaviorSubject(false);
-    startNodeSet = this.startNodeSetSource.asObservable();
-
-    private targetNodeSetSource = new BehaviorSubject(false);
-    targetNodeSet = this.targetNodeSetSource.asObservable();
-
-    constructor() { }
-
-    updateStartNode(update) {
-        this.startNodeSetSource.next(update);
+    findPath() {
+        console.log("service: finding path");
     }
-    updateTargetNode(update) {
-        this.targetNodeSetSource.next(update);
-    }
+
+   constructor() { }
 }

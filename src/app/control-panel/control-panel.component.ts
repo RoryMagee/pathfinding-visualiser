@@ -14,6 +14,10 @@ export class ControlPanelComponent implements OnInit {
         this.nodeDataService.sendClickEvent();
     }
 
+    findPath() {
+        this.nodeDataService.sendClickEvent();
+    }
+
     ngOnInit(): void {
     }
 

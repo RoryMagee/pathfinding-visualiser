@@ -7,3 +7,23 @@
     border-style: solid;
     border-radius: 5px;
 }
+
+#default-node {
+    background-color: white;
+}
+
+#visited-node {
+    background-color: lightblue;
+}
+
+#start-node {
+    background-color: lightgreen;
+}
+
+#target-node {
+    background-color: lightcoral;
+}
+
+#path-node {
+    background-color: black;
+}
