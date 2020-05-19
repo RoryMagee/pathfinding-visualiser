@@ -3,8 +3,9 @@ export class BinaryHeap {
     constructor() {
         this.values = [];
     }
-    insert(val) {
-        this.values.push(val);
+    
+    insert(val, priority) {
+        this.values.push({val, priority});
         this.bubbleUp();
     }
 
@@ -13,15 +14,17 @@ export class BinaryHeap {
         const element = this.values[idx];
         while(idx > 0) {
             let parentIdx = Math.floor((idx-1)/2);
-            if(element > this.values[parentIdx]) {
-                [this.values[parentIdx], this.values[idx]] = [this.values[idx], this.values[parentIdx]];
-                idx = parentIdx;
+            let parent = this.values[parentIdx];
+            if(element.priority >=  this.values[parentIdx].priority) {
+                break;
             }
+            [this.values[parentIdx], this.values[idx]] = [this.values[idx], this.values[parentIdx]];
+            idx = parentIdx;
         }
     }
-    
+
     extractMax() {
-        const max = this.values[0];
+        const max = this.values[0].val;
         const end = this.values.pop();
         this.values[0] = end;
         this.sinkDown();
@@ -37,13 +40,13 @@ export class BinaryHeap {
             let rightChildIdx = 2 * idx + 2;
             let swap = null;
             if(leftChildIdx < length) {
-                if(this.values[leftChildIdx] > element) {
+                if(this.values[leftChildIdx].priority > element.priority) {
                     swap = leftChildIdx;
                 }
             }
             if(rightChildIdx < length) {
-                if((swap === null && this.values[rightChildIdx] > element) ||
-                    (swap !== null && this.values[rightChildIdx] > this.values[leftChildIdx])) {
+                if((swap === null && this.values[rightChildIdx].priority > element.priority) ||
+                    (swap !== null && this.values[rightChildIdx].priority > this.values[leftChildIdx].priority)) {
                     swap = rightChildIdx;
                 }
             }
