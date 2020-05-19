@@ -60,11 +60,6 @@ export class NodeGridComponent implements OnInit {
     findPath() {
         alert("finding path");
     }
-
-    createGraphFromArr() {
-
-    }
-
     ngOnInit(): void {
     }
 }
