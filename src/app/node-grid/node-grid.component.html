@@ -8,7 +8,7 @@
     <table>
         <tr *ngFor="let row of grid; index as i">
             <td *ngFor="let column of grid[0]; index as j">
-                <div class="node" [id]="grid[i][j]" (click)="update(i,j,$event)" (mouseover)="update(i,j,$event)"></div>
+                <div class="node" [id]="grid[i][j].nodeType" (click)="update(i,j,$event)" (mouseover)="update(i,j,$event)"></div>
             </td>
         </tr>
     </table>
