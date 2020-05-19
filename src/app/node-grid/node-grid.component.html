@@ -6,9 +6,9 @@
 </head>
 <body>
     <table>
-        <tr *ngFor="let row of grid">
-            <td *ngFor="let column of grid[0]">
-                <app-node></app-node>
+        <tr *ngFor="let row of grid; index as i">
+            <td *ngFor="let column of grid[0]; index as j">
+                <div class="node" [id]="grid[i][j]" (click)="update(i,j,$event)" (mouseover)="update(i,j,$event)"></div>
             </td>
         </tr>
     </table>

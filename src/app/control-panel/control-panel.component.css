@@ -1,0 +1,26 @@
+.control-panel {
+    height: 75px;
+    width: 50%;
+    margin: 10px auto;
+    border: none;
+    cursor: pointer;
+    border-top-right-radius: 0.25rem;
+    border-bottom-right-radius: 0.25rem;
+}
+
+.cp-button {
+    height: 75px;
+    border-radius: 10px;
+}
+
+.cp-button:hover {
+    background-color: AliceBlue;
+}
+
+.cp-button-text {
+    text-align: center;
+    vertical-align: middle;
+    line-height: 75px;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 25px;
+}
