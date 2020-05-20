@@ -1,6 +1,6 @@
 import { BinaryHeap } from '../binary-heap';
 import { WeightedGraph } from '../weighted-graph';
 
-export function findShortestPath(graph) {
-   alert("test"); 
+export function findShortestPath(startNode, targetNode, grid) {
+    console.log(startNode, targetNode, grid);
 }

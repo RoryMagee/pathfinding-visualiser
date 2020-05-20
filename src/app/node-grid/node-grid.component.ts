@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { NodeComponent } from '../node/node.component';
 import { NodeDataService } from '../node-data.service';
 import { findShortestPath } from '../pathfinding-algos/dijkstras';
 import { Subscription } from 'rxjs';
@@ -17,30 +16,36 @@ export class NodeGridComponent implements OnInit {
     width = 50;
     resetGridSubscription:Subscription;
     runPathfindingSubscription;
-    startNodeSet: Boolean;
-    targetNodeSet: Boolean;
+    startNode = {
+        row: 15,
+        column: 12 
+    }
+    targetNode = {
+        row: 35,
+        column: 12
+    }
 
     constructor(private nodeDataService: NodeDataService) {
-
-        this.grid = new Array<Array<Node>>();
-        for (let x = 0; x < this.height; x++) {
-            let row:Node[] = new Array<Node>();
-            for (let y = 0; y < this.width; y++) {
-                row.push(new Node(x, y));
-            }
-            this.grid.push(row);
-        }
-
-        this.grid[12][15].nodeType = NodeTypes.Start;
-        this.grid[12][35].nodeType  = NodeTypes.Target; 
-
-        console.log(this.grid);
+        this.buildGrid();
         this.resetGridSubscription= this.nodeDataService.clickResetGrid().subscribe(() => {
             this.resetGrid();
         });
         this.runPathfindingSubscription = this.nodeDataService.clickPathfinding().subscribe(() => {
             this.findPath();
         });
+    }
+
+    buildGrid() {
+        this.grid = [];
+        for(let i = 0; i < this.height; i++) {
+            this.grid[i] = [];
+            for(let j = 0; j < this.width; j++) {
+                this.grid[i][j] = new Node(j,i);
+            }
+        }
+        console.log(this.grid);
+        this.grid[this.startNode.column][this.startNode.row].nodeType = NodeTypes.Start;
+        this.grid[this.targetNode.column][this.targetNode.row].nodeType = NodeTypes.Target;
     }
 
     update(i,j,$event) {
@@ -62,8 +67,10 @@ export class NodeGridComponent implements OnInit {
     }
 
     findPath() {
-        findShortestPath();        
+        findShortestPath(this.startNode, this.targetNode, this.grid);
+        alert("finding shortest path");
     }
+
     ngOnInit(): void {
     }
 }
