@@ -5,18 +5,23 @@ import { BehaviorSubject, Observable, Subject } from 'rxjs';
   providedIn: 'root'
 })
 export class NodeDataService {
-    private subject = new Subject<any>();
-    sendClickEvent() {
-        console.log(this.subject);
-        this.subject.next();
+    private clearGridSubject= new Subject<any>();
+    private runPathfindingSubject = new Subject<any>();
+    clearGridEvent() {
+        console.log(this.clearGridSubject);
+        this.clearGridSubject.next();
     }
 
     clickResetGrid(): Observable<any> {
-        return this.subject.asObservable();
+        return this.clearGridSubject.asObservable();
     }
 
-    findPath() {
-        console.log("service: finding path");
+    runPathfindingEvent() {
+        this.runPathfindingSubject.next();
+    }
+
+    clickPathfinding(): Observable<any> {
+        return this.runPathfindingSubject.asObservable();
     }
 
    constructor() { }

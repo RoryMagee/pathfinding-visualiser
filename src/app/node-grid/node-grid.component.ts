@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { NodeComponent } from '../node/node.component';
 import { NodeDataService } from '../node-data.service';
+import { findShortestPath } from '../pathfinding-algos/dijkstras';
 import { Subscription } from 'rxjs';
 @Component({
     selector: 'app-node-grid',
@@ -13,6 +14,7 @@ export class NodeGridComponent implements OnInit {
     height = 25;
     width = 50;
     resetGridSubscription:Subscription;
+    runPathfindingSubscription;
     startNodeSet: Boolean;
     targetNodeSet: Boolean;
 
@@ -33,6 +35,9 @@ export class NodeGridComponent implements OnInit {
         this.resetGridSubscription= this.nodeDataService.clickResetGrid().subscribe(() => {
             this.resetGrid();
         });
+        this.runPathfindingSubscription = this.nodeDataService.clickPathfinding().subscribe(() => {
+            this.findPath();
+        });
     }
 
     update(i,j,$event) {
@@ -42,8 +47,6 @@ export class NodeGridComponent implements OnInit {
             }
         }
     }
-
-
     
     resetGrid() {
         for(let x = 0; x < this.height; x++) {
@@ -56,7 +59,7 @@ export class NodeGridComponent implements OnInit {
     }
 
     findPath() {
-        alert("finding path");
+        findShortestPath();        
     }
 
     createGraphFromArr() {
