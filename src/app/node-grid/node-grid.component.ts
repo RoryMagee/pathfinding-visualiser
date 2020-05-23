@@ -67,7 +67,6 @@ export class NodeGridComponent implements OnInit {
 
     findPath() {
         findShortestPath(this.startNode, this.targetNode, this.grid);
-        alert("finding shortest path");
     }
 
     ngOnInit(): void {
