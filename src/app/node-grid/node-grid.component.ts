@@ -43,16 +43,15 @@ export class NodeGridComponent implements OnInit {
                 this.grid[i][j] = new Node(j,i);
             }
         }
-        console.log(this.grid);
         this.grid[this.startNode.column][this.startNode.row].nodeType = NodeTypes.Start;
         this.grid[this.targetNode.column][this.targetNode.row].nodeType = NodeTypes.Target;
     }
 
     update(i,j,$event) {
-        console.log(this.grid[i][j]);
         if($event.which === 1) {
             if(this.grid[i][j].nodeType === NodeTypes.Default) {
                 this.grid[i][j].nodeType =  NodeTypes.Path;
+                console.log(i,j);
             }
         }
     }
@@ -72,5 +71,6 @@ export class NodeGridComponent implements OnInit {
     }
 
     ngOnInit(): void {
+
     }
 }
