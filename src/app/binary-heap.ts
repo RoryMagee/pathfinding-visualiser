@@ -26,8 +26,10 @@ export class BinaryHeap {
     extractMax() {
         const max = this.values[0].val;
         const end = this.values.pop();
-        this.values[0] = end;
-        this.sinkDown();
+        if(this.values.length > 0) {
+            this.values[0] = end;
+            this.sinkDown();
+        }
         return max;
     }
 

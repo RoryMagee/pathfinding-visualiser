@@ -11,7 +11,7 @@ import { NodeTypes } from '../node-types.enum';
 })
 export class NodeGridComponent implements OnInit {
 
-    grid:Node[][];
+    grid:Object[][];
     height = 25;
     width = 50;
     resetGridSubscription:Subscription;
@@ -37,32 +37,36 @@ export class NodeGridComponent implements OnInit {
 
     buildGrid() {
         this.grid = [];
-        for(let i = 0; i < this.height; i++) {
-            this.grid[i] = [];
-            for(let j = 0; j < this.width; j++) {
-                this.grid[i][j] = new Node(j,i);
+        for(let x = this.height-1; x >=  0; x--) {
+            this.grid[x] = [];
+            for(let y = 0; y < this.width ; y++) {
+                this.grid[x][y] = {
+                    x:x,
+                    y:y,
+                    nodeType: NodeTypes.Default
+                }
             }
         }
-        this.grid[this.startNode.column][this.startNode.row].nodeType = NodeTypes.Start;
-        this.grid[this.targetNode.column][this.targetNode.row].nodeType = NodeTypes.Target;
+        this.grid[this.startNode.column][this.startNode.row]['nodeType'] = NodeTypes.Start;
+        this.grid[this.targetNode.column][this.targetNode.row]['nodeType'] = NodeTypes.Target;
     }
 
-    update(i,j,$event) {
+    update(x,y,$event) {
         if($event.which === 1) {
-            if(this.grid[i][j].nodeType === NodeTypes.Default) {
-                this.grid[i][j].nodeType =  NodeTypes.Path;
-                console.log(i,j);
+            if(this.grid[x][y]['nodeType'] === NodeTypes.Default) {
+                this.grid[x][y]['nodeType'] =  NodeTypes.Path;
             }
         }
     }
+
     resetGrid() {
         for(let x = 0; x < this.height; x++) {
             for(let y = 0; y < this.width; y++) {
-                this.grid[x][y].nodeType = NodeTypes.Default; 
+                this.grid[x][y]['nodeType'] = NodeTypes.Default; 
             }
         }
-        this.grid[12][15].nodeType = NodeTypes.Start;
-        this.grid[12][35].nodeType = NodeTypes.Target; 
+        this.grid[12][15]['nodeType'] = NodeTypes.Start;
+        this.grid[12][35]['nodeType'] = NodeTypes.Target; 
     }
 
     findPath() {
