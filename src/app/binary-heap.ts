@@ -1,11 +1,12 @@
 export class BinaryHeap {
+
     values;
     constructor() {
         this.values = [];
     }
     
     insert(val, priority) {
-        this.values.push({val, priority});
+        this.values.push({val:val, priority:priority});
         this.bubbleUp();
     }
 
@@ -24,31 +25,31 @@ export class BinaryHeap {
     }
 
     extractMax() {
-        const max = this.values[0].val;
+        const max = this.values[0];
         const end = this.values.pop();
         if(this.values.length > 0) {
             this.values[0] = end;
             this.sinkDown();
         }
-        return max;
+        return max.val;
     }
 
     sinkDown() {
         let idx = 0;
-        const lenght = this.values.length;
+        const length = this.values.length;
         const element = this.values[0];
         while(true) {
-            let leftChildIdx = 2 * idx + 1;
-            let rightChildIdx = 2 * idx + 2;
+            let leftChildIdx = (2 * idx) + 1;
+            let rightChildIdx = (2 * idx) + 2;
             let swap = null;
             if(leftChildIdx < length) {
-                if(this.values[leftChildIdx].priority > element.priority) {
+                if(this.values[leftChildIdx].priority < element.priority) {
                     swap = leftChildIdx;
                 }
             }
             if(rightChildIdx < length) {
-                if((swap === null && this.values[rightChildIdx].priority > element.priority) ||
-                    (swap !== null && this.values[rightChildIdx].priority > this.values[leftChildIdx].priority)) {
+                if((swap === null && this.values[rightChildIdx].priority < element.priority) ||
+                    (swap !== null && this.values[rightChildIdx].priority <  this.values[leftChildIdx].priority)) {
                     swap = rightChildIdx;
                 }
             }

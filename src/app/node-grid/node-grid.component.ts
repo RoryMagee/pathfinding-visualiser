@@ -37,7 +37,7 @@ export class NodeGridComponent implements OnInit {
 
     buildGrid() {
         this.grid = [];
-        for(let x = this.height-1; x >=  0; x--) {
+        for(let x = 0; x < this.height; x++) {
             this.grid[x] = [];
             for(let y = 0; y < this.width ; y++) {
                 this.grid[x][y] = {

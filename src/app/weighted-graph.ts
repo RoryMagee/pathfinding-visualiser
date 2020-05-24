@@ -11,8 +11,8 @@ export class WeightedGraph {
 
     addEdge(v1,v2) {
         if(!this.adjacencyList[v1][v2]) {
-            this.adjacencyList[v1].push(v2);
-            this.adjacencyList[v2].push(v1);
+            this.adjacencyList[v1].push({node:v2, weight:1});
+            this.adjacencyList[v2].push({node:v1, weight:1});
         }
     }
 
@@ -42,21 +42,19 @@ export class WeightedGraph {
                 }
                 break;
             }
-            console.log('smallest', smallest);
             if(smallest || distances[smallest] !== Infinity) {
                 for(let neighbour in this.adjacencyList[smallest]) {
                     let nextNode = this.adjacencyList[smallest][neighbour];
-                    let candidate = distances[smallest] + 1;
-                    if(candidate < distances[nextNode]) {
-                        distances[nextNode] = candidate;
-                        previous[nextNode] = smallest;
-                        nodes.insert(nextNode, candidate);
+                    let candidate = distances[smallest] + nextNode.weight;
+                    if(candidate < distances[nextNode.node]) {
+                        distances[nextNode.node] = candidate;
+                        previous[nextNode.node] = smallest;
+                        nodes.insert(nextNode.node, candidate);
                     }
                 }
             }
         }
-        console.log(path);
-        path.concat(smallest);
+        path.shift();
         return path;
     }
 }

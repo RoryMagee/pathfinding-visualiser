@@ -23,7 +23,12 @@ describe('BinaryHeap', () => {
     it('should return the item with the lowest priority', () => {
         bh.insert(5,5);
         bh.insert(4,4);
+        bh.insert(6,6);
+        bh.insert(1,1);
+        expect(bh.extractMax()).toBe(1);
         expect(bh.extractMax()).toBe(4);
+        expect(bh.extractMax()).toBe(5);
+        expect(bh.extractMax()).toBe(6);
     });
 });
 
