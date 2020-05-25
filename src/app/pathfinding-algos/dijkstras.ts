@@ -3,15 +3,14 @@ import { WeightedGraph } from '../weighted-graph';
 import { Node } from '../node';
 import { NodeTypes } from '../node-types.enum';
 
-export function findShortestPath(startNode, targetNode, grid) {
+export async function findShortestPath(startNode, targetNode, grid) {
     let wg = createGraph(grid);
     //let shortestPath = wg.shortestPath(`${startNode.column},${startNode.row}`, `${targetNode.column},${targetNode.row}`);
-    let path = shortestPath(wg,grid,`${startNode.column},${startNode.row}`, `${targetNode.column},${targetNode.row}`);
-    console.log(path);
-    console.log(path);
+    let path = await shortestPath(wg,grid,`${startNode.column},${startNode.row}`, `${targetNode.column},${targetNode.row}`)
     for(let x = 0; x < path.length; x++) {
         let arr = path[x].split(',');
-        if(grid[arr[0]][arr[1]].nodeType === NodeTypes.Default) {
+        if(grid[arr[0]][arr[1]].nodeType !== NodeTypes.Start && grid[arr[0]][arr[1]].nodeType !== NodeTypes.Target) {
+            await sleep(50);
             grid[arr[0]][arr[1]].nodeType = NodeTypes.Visited;
         }
     }
@@ -48,7 +47,7 @@ function sleep(ms) {
     return new Promise(resolve => setTimeout(resolve, ms));
 }
 
-function shortestPath(wg,grid,start,end) {
+async function shortestPath(wg,grid,start,end) {
     const nodes = new BinaryHeap();
     const distances = {};
     const previous = {};
@@ -69,9 +68,10 @@ function shortestPath(wg,grid,start,end) {
         smallest = nodes.extractMax();
         let arr = smallest.split(',');
         if(grid[arr[0]][arr[1]].nodeType === NodeTypes.Default) {
-            sleep(5).then(() => {
+            await sleep(1);
+            //sleep(1000).then(() => {
                 grid[arr[0]][arr[1]].nodeType = NodeTypes.Searched;
-            });
+            //});
         } 
         if(smallest === end) { while(previous[smallest]) { path.push(smallest);
                 smallest = previous[smallest];
@@ -90,6 +90,5 @@ function shortestPath(wg,grid,start,end) {
             }
         }
     }
-    console.log(path);
-    return path;
+    return path.reverse();
 }
