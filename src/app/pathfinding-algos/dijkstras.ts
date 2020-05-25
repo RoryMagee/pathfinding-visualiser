@@ -10,7 +10,7 @@ export async function findShortestPath(startNode, targetNode, grid) {
     for(let x = 0; x < path.length; x++) {
         let arr = path[x].split(',');
         if(grid[arr[0]][arr[1]].nodeType !== NodeTypes.Start && grid[arr[0]][arr[1]].nodeType !== NodeTypes.Target) {
-            await sleep(50);
+            await sleep(25);
             grid[arr[0]][arr[1]].nodeType = NodeTypes.Visited;
         }
     }

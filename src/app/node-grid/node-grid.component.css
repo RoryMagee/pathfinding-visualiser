@@ -1,11 +1,13 @@
+table {
+    margin: 0px auto;
+}
 .node {
     height: 25px;
     width: 25px;
-    padding: 2px;
     border-color: darkgray;
     border-width: 1px;
     border-style: solid;
-    border-radius: 5px;
+    border-radius: 1px;
 }
 
 #default-node {
@@ -13,21 +15,21 @@
 }
 
 #visited-node {
-    background-color: lightblue;
+    background-color: yellow;
 }
 
 #start-node {
-    background-color: lightgreen;
+    background-color: darkgreen;
 }
 
 #target-node {
-    background-color: lightcoral;
+    background-color: darkred;
 }
 
 #path-node {
-    background-color: black;
+    background-color: steelblue;
 }
 
 #searched-node {
-    background-color: yellow;
+    background-color: lightblue;
 }
