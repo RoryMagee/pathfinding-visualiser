@@ -1,3 +1,4 @@
+import { NodeTypes } from './node-types.enum';
 import { BinaryHeap } from './binary-heap';
 export class WeightedGraph {
     adjacencyList;
