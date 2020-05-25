@@ -11,11 +11,11 @@ export class ControlPanelComponent implements OnInit {
 
     constructor(private nodeDataService:NodeDataService) { } 
     clearGrid() {
-        this.nodeDataService.sendClickEvent();
+        this.nodeDataService.clearGridEvent();
     }
 
     findPath() {
-        this.nodeDataService.sendClickEvent();
+        this.nodeDataService.runPathfindingEvent();
     }
 
     ngOnInit(): void {

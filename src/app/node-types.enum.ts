@@ -3,5 +3,6 @@ export enum NodeTypes {
     Target = "target-node", 
     Path = "path-node", 
     Default = "default-node", 
-    Visited = "visited-node"
+    Visited = "visited-node",
+    Searched = "searched-node"
 }

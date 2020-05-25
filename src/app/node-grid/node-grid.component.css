@@ -27,3 +27,7 @@
 #path-node {
     background-color: black;
 }
+
+#searched-node {
+    background-color: yellow;
+}
