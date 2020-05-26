@@ -5,7 +5,6 @@ import { NodeTypes } from '../node-types.enum';
 
 export async function findShortestPath(startNode, targetNode, grid) {
     let wg = createGraph(grid);
-    //let shortestPath = wg.shortestPath(`${startNode.column},${startNode.row}`, `${targetNode.column},${targetNode.row}`);
     let path = await shortestPath(wg,grid,`${startNode.column},${startNode.row}`, `${targetNode.column},${targetNode.row}`)
     for(let x = 0; x < path.length; x++) {
         let arr = path[x].split(',');
@@ -67,10 +66,6 @@ async function shortestPath(wg,grid,start,end) {
     while(nodes.values.length) {
         smallest = nodes.extractMax();
         let arr = smallest.split(',');
-        if(grid[arr[0]][arr[1]].nodeType === NodeTypes.Default) {
-            await sleep(1);
-            grid[arr[0]][arr[1]].nodeType = NodeTypes.Searched;
-        } 
         if(smallest === end) { 
             while(previous[smallest]) { 
                 path.push(smallest);
@@ -78,7 +73,7 @@ async function shortestPath(wg,grid,start,end) {
             }
             break;
         }
-        if(smallest || distances[smallest] !== Infinity) {
+        if(distances[smallest] !== Infinity) {
             for(let neighbour in wg.adjacencyList[smallest]) {
                 let nextNode = wg.adjacencyList[smallest][neighbour];
                 let candidate = distances[smallest] + nextNode.weight;
@@ -88,7 +83,13 @@ async function shortestPath(wg,grid,start,end) {
                     nodes.insert(nextNode.node, candidate);
                 }
             }
+        } else {
+            break;
         }
+        if(grid[arr[0]][arr[1]].nodeType === NodeTypes.Default) {
+            await sleep(1);
+            grid[arr[0]][arr[1]].nodeType = NodeTypes.Searched;
+        } 
     }
     return path.reverse();
 }
