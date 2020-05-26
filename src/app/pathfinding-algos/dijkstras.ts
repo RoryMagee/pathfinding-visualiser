@@ -69,11 +69,11 @@ async function shortestPath(wg,grid,start,end) {
         let arr = smallest.split(',');
         if(grid[arr[0]][arr[1]].nodeType === NodeTypes.Default) {
             await sleep(1);
-            //sleep(1000).then(() => {
-                grid[arr[0]][arr[1]].nodeType = NodeTypes.Searched;
-            //});
+            grid[arr[0]][arr[1]].nodeType = NodeTypes.Searched;
         } 
-        if(smallest === end) { while(previous[smallest]) { path.push(smallest);
+        if(smallest === end) { 
+            while(previous[smallest]) { 
+                path.push(smallest);
                 smallest = previous[smallest];
             }
             break;

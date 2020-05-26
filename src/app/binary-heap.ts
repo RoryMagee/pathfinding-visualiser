@@ -6,7 +6,7 @@ export class BinaryHeap {
     }
     
     insert(val, priority) {
-        this.values.push({val:val, priority:priority});
+        this.values.push({val, priority});
         this.bubbleUp();
     }
 
@@ -16,7 +16,7 @@ export class BinaryHeap {
         while(idx > 0) {
             let parentIdx = Math.floor((idx-1)/2);
             let parent = this.values[parentIdx];
-            if(element.priority >=  this.values[parentIdx].priority) {
+            if(element.priority >= parent.priority) {
                 break;
             }
             [this.values[parentIdx], this.values[idx]] = [this.values[idx], this.values[parentIdx]];
