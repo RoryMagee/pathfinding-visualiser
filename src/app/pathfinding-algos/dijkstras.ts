@@ -73,7 +73,7 @@ async function shortestPath(wg,grid,start,end) {
             }
             break;
         }
-        if(distances[smallest] !== Infinity) {
+        if(smallest && distances[smallest] !== Infinity) {
             for(let neighbour in wg.adjacencyList[smallest]) {
                 let nextNode = wg.adjacencyList[smallest][neighbour];
                 let candidate = distances[smallest] + nextNode.weight;
