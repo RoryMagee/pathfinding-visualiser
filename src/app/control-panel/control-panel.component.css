@@ -14,7 +14,7 @@
 }
 
 .cp-button:hover {
-    background-color: AliceBlue;
+    background-color: lightblue;
 }
 
 .cp-button-text {
@@ -23,4 +23,13 @@
     line-height: 75px;
     font-family: Arial, Helvetica, sans-serif;
     font-size: 25px;
+}
+
+
+#main-btn {
+    background-color: steelblue;
+}
+
+#main-btn:hover {
+    background-color: lightblue;
 }
