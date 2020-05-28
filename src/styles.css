@@ -15,11 +15,12 @@
     -ms-user-select: none;
 }
 
+/*
 div {
     border-color: black;
     border-width: 1px;
     border-style: solid;
-}
+} */
 #default-node {
     background-color: white;
 }
