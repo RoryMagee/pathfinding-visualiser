@@ -1,33 +1,7 @@
-.node {
-    height: 25px;
-    width: 25px;
-    padding: 2px;
-    border-color: darkgray;
-    border-width: 1px;
-    border-style: solid;
-    border-radius: 5px;
+table {
+    margin: 0px auto;
 }
 
-#default-node {
-    background-color: white;
-}
-
-#visited-node {
-    background-color: lightblue;
-}
-
-#start-node {
-    background-color: lightgreen;
-}
-
-#target-node {
-    background-color: lightcoral;
-}
-
-#path-node {
-    background-color: black;
-}
-
-#searched-node {
-    background-color: yellow;
-}
+td {
+    margin: 0; padding: 0;    
+} 

@@ -1,2 +1,50 @@
-<app-control-panel></app-control-panel>
-<app-node-grid></app-node-grid>
+<div class="container">
+    <div class="row justify-content-center"> 
+        <div class="col">
+            <app-control-panel></app-control-panel>
+        </div>
+    </div>
+    <div class="row justify-content-center"> 
+        <div class="col">
+            <app-node-grid></app-node-grid>
+        </div>
+    </div>
+    <div class="row justify-content-center">
+        <div class="card col m-2">
+            <div class="card-body">
+                <h3 class="card-title">Legend</h3>
+                <div class="row">
+                     <div class="col">
+                          <div id="default-node" class="node"></div>
+                          <p>Default</p>
+                     </div>
+                     <div class="col">
+                          <div id="start-node" class="node"></div>
+                          <p>Start</p>
+                     </div>
+                     <div class="col">
+                          <div id="target-node" class="node"></div>
+                          <p>Target</p>
+                     </div>
+                     <div class="col">
+                          <div id="path-node" class="node"></div>
+                          <p>Wall</p>
+                     </div>
+                     <div class="col">
+                          <div id="visited-node" class="node"></div>
+                          <p>Path</p>
+                     </div>
+                     <div class="col">
+                          <div id="searched-node" class="node"></div>
+                          <p>Searched</p>
+                     </div>
+                </div>
+                <hr>
+                <p class="card-text">
+                Draw obstacals on the grid then click the 'Visualize Algorithm' button 
+                to see the shortest path    
+                </p>
+            </div>
+        </div>
+    </div>
+</div>

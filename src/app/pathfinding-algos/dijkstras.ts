@@ -3,15 +3,16 @@ import { WeightedGraph } from '../weighted-graph';
 import { Node } from '../node';
 import { NodeTypes } from '../node-types.enum';
 
-export function findShortestPath(startNode, targetNode, grid) {
+export async function findShortestPath(startNode, targetNode, grid) {
     let wg = createGraph(grid);
-    //let shortestPath = wg.shortestPath(`${startNode.column},${startNode.row}`, `${targetNode.column},${targetNode.row}`);
-    let path = shortestPath(wg,grid,`${startNode.column},${startNode.row}`, `${targetNode.column},${targetNode.row}`);
-    console.log(path);
-    console.log(path);
+    let date1 = new Date();
+    let path = await shortestPath(wg,grid,`${startNode.column},${startNode.row}`, `${targetNode.column},${targetNode.row}`)
+    let date2 = new Date();
+    console.log(date2.getTime()-date1.getTime());
     for(let x = 0; x < path.length; x++) {
         let arr = path[x].split(',');
-        if(grid[arr[0]][arr[1]].nodeType === NodeTypes.Default) {
+        if(grid[arr[0]][arr[1]].nodeType !== NodeTypes.Start && grid[arr[0]][arr[1]].nodeType !== NodeTypes.Target) {
+            await sleep(25);
             grid[arr[0]][arr[1]].nodeType = NodeTypes.Visited;
         }
     }
@@ -48,7 +49,7 @@ function sleep(ms) {
     return new Promise(resolve => setTimeout(resolve, ms));
 }
 
-function shortestPath(wg,grid,start,end) {
+async function shortestPath(wg,grid,start,end) {
     const nodes = new BinaryHeap();
     const distances = {};
     const previous = {};
@@ -68,17 +69,14 @@ function shortestPath(wg,grid,start,end) {
     while(nodes.values.length) {
         smallest = nodes.extractMax();
         let arr = smallest.split(',');
-        if(grid[arr[0]][arr[1]].nodeType === NodeTypes.Default) {
-            sleep(5).then(() => {
-                grid[arr[0]][arr[1]].nodeType = NodeTypes.Searched;
-            });
-        } 
-        if(smallest === end) { while(previous[smallest]) { path.push(smallest);
+        if(smallest === end) { 
+            while(previous[smallest]) { 
+                path.push(smallest);
                 smallest = previous[smallest];
             }
             break;
         }
-        if(smallest || distances[smallest] !== Infinity) {
+        if(smallest && distances[smallest] !== Infinity) {
             for(let neighbour in wg.adjacencyList[smallest]) {
                 let nextNode = wg.adjacencyList[smallest][neighbour];
                 let candidate = distances[smallest] + nextNode.weight;
@@ -88,8 +86,13 @@ function shortestPath(wg,grid,start,end) {
                     nodes.insert(nextNode.node, candidate);
                 }
             }
+        } else {
+            break;
         }
+        if(grid[arr[0]][arr[1]].nodeType === NodeTypes.Default) {
+            await sleep(1);
+            grid[arr[0]][arr[1]].nodeType = NodeTypes.Searched;
+        } 
     }
-    console.log(path);
-    return path;
+    return path.reverse();
 }
