@@ -5,7 +5,10 @@ import { NodeTypes } from '../node-types.enum';
 
 export async function findShortestPath(startNode, targetNode, grid) {
     let wg = createGraph(grid);
+    let date1 = new Date();
     let path = await shortestPath(wg,grid,`${startNode.column},${startNode.row}`, `${targetNode.column},${targetNode.row}`)
+    let date2 = new Date();
+    console.log(date2.getTime()-date1.getTime());
     for(let x = 0; x < path.length; x++) {
         let arr = path[x].split(',');
         if(grid[arr[0]][arr[1]].nodeType !== NodeTypes.Start && grid[arr[0]][arr[1]].nodeType !== NodeTypes.Target) {
