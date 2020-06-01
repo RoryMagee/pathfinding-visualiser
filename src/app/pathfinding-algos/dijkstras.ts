@@ -5,10 +5,16 @@ import { NodeTypes } from '../node-types.enum';
 
 export async function findShortestPath(startNode, targetNode, grid) {
     let wg = createGraph(grid);
-    let date1 = new Date();
-    let path = await shortestPath(wg,grid,`${startNode.column},${startNode.row}`, `${targetNode.column},${targetNode.row}`)
-    let date2 = new Date();
-    console.log(date2.getTime()-date1.getTime());
+    let result = await shortestPath(wg,grid,`${startNode.column},${startNode.row}`, `${targetNode.column},${targetNode.row}`)
+    let path = result.path;
+    let searched = result.searched;
+    for(let y = 0; y < searched.length; y++) {
+        let arr = searched[y].split(',');
+        if(grid[arr[0]][arr[1]].nodeType === NodeTypes.Default) {
+            await sleep(5);
+            grid[arr[0]][arr[1]].nodeType = NodeTypes.Searched;
+        }
+    }
     for(let x = 0; x < path.length; x++) {
         let arr = path[x].split(',');
         if(grid[arr[0]][arr[1]].nodeType !== NodeTypes.Start && grid[arr[0]][arr[1]].nodeType !== NodeTypes.Target) {
@@ -55,6 +61,7 @@ async function shortestPath(wg,grid,start,end) {
     const previous = {};
     const path = [];
     let smallest;
+    let searchedNodes = [];
 
     for(let vertex in wg.adjacencyList) {
         if(vertex === start) {
@@ -90,9 +97,11 @@ async function shortestPath(wg,grid,start,end) {
             break;
         }
         if(grid[arr[0]][arr[1]].nodeType === NodeTypes.Default) {
-            await sleep(1);
-            grid[arr[0]][arr[1]].nodeType = NodeTypes.Searched;
+            searchedNodes.push(`${arr[0]},${arr[1]}`);
         } 
     }
-    return path.reverse();
+    return {
+        path: path.reverse(),
+        searched: searchedNodes
+    };
 }

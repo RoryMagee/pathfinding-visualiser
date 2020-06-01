@@ -19,8 +19,8 @@ export class ControlPanelComponent implements OnInit {
     }
 
     createMaze() {
-        this.nodeDataService.createMazeEvent();
-    }
+        this.nodeDataService.createMazeEvent(); }
+
     ngOnInit(): void {
     }
 
