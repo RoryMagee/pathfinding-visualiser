@@ -8,18 +8,16 @@ export async function findShortestPath(startNode, targetNode, grid) {
     let result = await shortestPath(wg,grid,`${startNode.column},${startNode.row}`, `${targetNode.column},${targetNode.row}`)
     let path = result.path;
     let searched = result.searched;
-    for(let y = 0; y < searched.length; y++) {
-        let arr = searched[y].split(',');
-        if(grid[arr[0]][arr[1]].nodeType === NodeTypes.Default) {
-            await sleep(5);
-            grid[arr[0]][arr[1]].nodeType = NodeTypes.Searched;
-        }
-    }
-    for(let x = 0; x < path.length; x++) {
-        let arr = path[x].split(',');
-        if(grid[arr[0]][arr[1]].nodeType !== NodeTypes.Start && grid[arr[0]][arr[1]].nodeType !== NodeTypes.Target) {
-            await sleep(25);
-            grid[arr[0]][arr[1]].nodeType = NodeTypes.Visited;
+    await animate(grid,searched,4,NodeTypes.Searched);
+    await animate(grid,path,25,NodeTypes.Visited);
+} 
+
+async function animate(grid,arr: Array<String>,speed: Number,nodeType: NodeTypes) {
+    for(let x = 0; x < arr.length; x++) {
+        let strSplit = arr[x].split(',');
+        if(grid[strSplit[0]][strSplit[1]].nodeType === NodeTypes.Default || grid[strSplit[0]][strSplit[1]].nodeType === NodeTypes.Searched) {
+            await sleep(speed);
+            grid[strSplit[0]][strSplit[1]].nodeType = nodeType;
         }
     }
 }

@@ -8,6 +8,7 @@ export class NodeDataService {
     private clearGridSubject= new Subject<any>();
     private runPathfindingSubject = new Subject<any>();
     private createMazeSubject = new Subject<any>();
+
     clearGridEvent() {
         this.clearGridSubject.next();
     }
