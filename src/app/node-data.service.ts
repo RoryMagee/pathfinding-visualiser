@@ -7,8 +7,8 @@ import { BehaviorSubject, Observable, Subject } from 'rxjs';
 export class NodeDataService {
     private clearGridSubject= new Subject<any>();
     private runPathfindingSubject = new Subject<any>();
+    private createMazeSubject = new Subject<any>();
     clearGridEvent() {
-        console.log(this.clearGridSubject);
         this.clearGridSubject.next();
     }
 
@@ -22,6 +22,14 @@ export class NodeDataService {
 
     clickPathfinding(): Observable<any> {
         return this.runPathfindingSubject.asObservable();
+    }
+
+    createMazeEvent() {
+        this.createMazeSubject.next();
+    }
+
+    createMaze(): Observable<any> {
+        return this.createMazeSubject.asObservable();
     }
 
    constructor() { }

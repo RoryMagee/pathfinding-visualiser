@@ -16,6 +16,8 @@ export class NodeGridComponent implements OnInit {
     width = 50;
     resetGridSubscription:Subscription;
     runPathfindingSubscription;
+    createMazeSubscription;
+
     startNode = {
         row: 15,
         column: 12 
@@ -26,13 +28,6 @@ export class NodeGridComponent implements OnInit {
     }
 
     constructor(private nodeDataService: NodeDataService) {
-        this.buildGrid();
-        this.resetGridSubscription= this.nodeDataService.clickResetGrid().subscribe(() => {
-            this.resetGrid();
-        });
-        this.runPathfindingSubscription = this.nodeDataService.clickPathfinding().subscribe(() => {
-            this.findPath();
-        });
     }
 
     buildGrid() {
@@ -73,7 +68,19 @@ export class NodeGridComponent implements OnInit {
         findShortestPath(this.startNode, this.targetNode, this.grid);
     }
 
+    createMaze() {
+        console.log('creating maze');
+    }
     ngOnInit(): void {
-
+        this.buildGrid();
+        this.resetGridSubscription= this.nodeDataService.clickResetGrid().subscribe(() => {
+            this.resetGrid();
+        });
+        this.runPathfindingSubscription = this.nodeDataService.clickPathfinding().subscribe(() => {
+            this.findPath();
+        });
+        this.createMazeSubscription = this.nodeDataService.createMaze().subscribe(() => {
+            this.createMaze();
+        });
     }
 }
