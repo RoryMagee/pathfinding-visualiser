@@ -1,14 +1,17 @@
+import { CdkDragDrop, moveItemInArray, transferArrayItem } from "@angular/cdk/drag-drop";
 import { Component, OnInit } from '@angular/core';
 import { NodeDataService } from '../node-data.service';
 import { findShortestPath } from '../pathfinding-algos/dijkstras';
 import { Subscription } from 'rxjs';
 import { Node } from '../node';
 import { NodeTypes } from '../node-types.enum';
+
 @Component({
     selector: 'app-node-grid',
     templateUrl: './node-grid.component.html',
     styleUrls: ['./node-grid.component.css']
 })
+
 export class NodeGridComponent implements OnInit {
 
     grid:Object[][];
@@ -47,10 +50,16 @@ export class NodeGridComponent implements OnInit {
     }
 
     update(x,y,$event) {
-        if($event.which === 1) {
-            if(this.grid[x][y]['nodeType'] === NodeTypes.Default) {
-                this.grid[x][y]['nodeType'] =  NodeTypes.Path;
-            }
+        if($event.which === 1 && this.grid[x][y]['nodeType'] === NodeTypes.Default) {
+            this.grid[x][y]['nodeType'] =  NodeTypes.Path;
+        }
+    }
+
+    drop(event:CdkDragDrop<string[]>) {
+        console.log(event);
+        if(event.previousContainer === event.container) {
+            moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
+            console.log("item moved");
         }
     }
 
