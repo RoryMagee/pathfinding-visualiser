@@ -5,11 +5,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 <body>
-    <table cdkDropList [cdkDropListData]="grid" (cdkDropListDropped)="drop($event)">
+    <table cdkDropList (cdkDropListDropped)="drop($event)">
         <tr *ngFor="let row of grid; index as i">
             <td *ngFor="let column of grid[i]; index as j"> 
-                <div cdkDrag class=" node" [id]="grid[i][j]['nodeType']"></div>
-                <!--<div cdkDropList class=" node" [id]="grid[i][j]['nodeType']" (cdkDropListDropped)="drag(i,j,$event)" (click)="update(i,j,$event)" (mouseover)="update(i,j,$event)"></div>-->
+                <div *ngIf="grid[i][j]['nodeType'] === 'start-node'; else elseIfBlock" class="node" [id]="grid[i][j]['nodeType']" cdkDrag [cdkDragData]="grid[i][j]"></div>
+                <ng-template #elseIfBlock>
+                    <div *ngIf="grid[i][j]['nodeType'] === 'target-node'; else elseBlock" class="node" [id]="grid[i][j]['nodeType']" cdkDrag></div>
+                </ng-template>
+                <ng-template #elseBlock>
+                    <div class="node" [id]="grid[i][j]['nodeType']"(click)="update(i,j,$event)" (mouseover)="update(i,j,$event)"></div>  
+                </ng-template>
             </td>
         </tr>
     </table>

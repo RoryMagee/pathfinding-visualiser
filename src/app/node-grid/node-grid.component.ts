@@ -56,11 +56,9 @@ export class NodeGridComponent implements OnInit {
     }
 
     drop(event:CdkDragDrop<string[]>) {
-        console.log(event);
-        if(event.previousContainer === event.container) {
-            moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
-            console.log("item moved");
-        }
+        console.log(event.item.dropContainer.element.nativeElement);
+        console.log(event.item.data);
+        moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
     }
 
     resetGrid() {
