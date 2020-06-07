@@ -3,8 +3,9 @@ import { Component, OnInit } from '@angular/core';
 import { NodeDataService } from '../node-data.service';
 import { findShortestPath } from '../pathfinding-algos/dijkstras';
 import { Subscription } from 'rxjs';
-import { Node } from '../node';
 import { NodeTypes } from '../node-types.enum';
+import { createMaze } from '../utils/maze';
+import { Node } from '../node.Object';
 
 @Component({
     selector: 'app-node-grid',
@@ -14,20 +15,21 @@ import { NodeTypes } from '../node-types.enum';
 
 export class NodeGridComponent implements OnInit {
 
-    grid:Object[][];
+    grid:Node[][];
     height = 25;
     width = 50;
     resetGridSubscription:Subscription;
     runPathfindingSubscription;
     createMazeSubscription;
+    dragAndDrop:Boolean = false;
 
-    startNode = {
-        row: 15,
-        column: 12 
+    startNode:Node = {
+        x: 15,
+        y: 12 
     }
-    targetNode = {
-        row: 35,
-        column: 12
+    targetNode:Node = {
+        x: 35,
+        y: 12
     }
 
     constructor(private nodeDataService: NodeDataService) {
@@ -35,22 +37,22 @@ export class NodeGridComponent implements OnInit {
 
     buildGrid() {
         this.grid = [];
-        for(let x = 0; x < this.height; x++) {
-            this.grid[x] = [];
-            for(let y = 0; y < this.width ; y++) {
-                this.grid[x][y] = {
+        for(let y = 0; y < this.height-1; y++) {
+            this.grid[y] = [];
+            for(let x = 0; x < this.width-1 ; x++) {
+                this.grid[y][x] = {
                     x:x,
                     y:y,
                     nodeType: NodeTypes.Default
                 }
             }
         }
-        this.grid[this.startNode.column][this.startNode.row]['nodeType'] = NodeTypes.Start;
-        this.grid[this.targetNode.column][this.targetNode.row]['nodeType'] = NodeTypes.Target;
+        this.grid[this.startNode.y][this.startNode.x]['nodeType'] = NodeTypes.Start;
+        this.grid[this.targetNode.y][this.targetNode.x]['nodeType'] = NodeTypes.Target;
     }
 
     update(x,y,$event) {
-        if($event.which === 1 && this.grid[x][y]['nodeType'] === NodeTypes.Default) {
+        if($event.which === 1 && this.grid[x][y]['nodeType'] === NodeTypes.Default && this.dragAndDrop === false) {
             this.grid[x][y]['nodeType'] =  NodeTypes.Path;
         }
     }
@@ -62,13 +64,15 @@ export class NodeGridComponent implements OnInit {
     }
 
     resetGrid() {
-        for(let x = 0; x < this.height; x++) {
-            for(let y = 0; y < this.width; y++) {
-                this.grid[x][y]['nodeType'] = NodeTypes.Default; 
+        for(let y = 0; y < this.height-1; y++) {
+            for(let x = 0; x < this.width-1; x++) {
+                this.grid[y][x]['nodeType'] = NodeTypes.Default; 
             }
         }
-        this.grid[12][15]['nodeType'] = NodeTypes.Start;
-        this.grid[12][35]['nodeType'] = NodeTypes.Target; 
+        this.targetNode.x = 35;
+        this.startNode.x = 15;
+        this.grid[12][15].nodeType = NodeTypes.Start;
+        this.grid[12][35].nodeType = NodeTypes.Target; 
     }
 
     findPath() {
@@ -76,8 +80,9 @@ export class NodeGridComponent implements OnInit {
     }
 
     createMaze() {
-        console.log('creating maze');
+        createMaze(this.grid, this.startNode, this.targetNode);
     }
+
     ngOnInit(): void {
         this.buildGrid();
         this.resetGridSubscription= this.nodeDataService.clickResetGrid().subscribe(() => {
