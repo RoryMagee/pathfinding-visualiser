@@ -6,9 +6,7 @@ import { NodeTypes } from '../node-types.enum';
 
 export async function findShortestPath(startNode, targetNode, grid) {
     let wg = createGraph(grid);
-    console.log(wg);
     let result = await shortestPath(wg,grid, startNode, targetNode)
-    //let result = await shortestPath(wg,grid,`${startNode.row},${startNode.column}`, `${targetNode.row},${targetNode.column}`)
     let path = result.path;
     let searched = result.searched;
     await animate(grid,searched,1,NodeTypes.Searched);
@@ -37,7 +35,6 @@ function createGraph(grid:Node[][]) {
         for(let x = 0; x < gridWidth; x++) {
             if(y+1 < gridHeight) {
                 if(grid[y+1][x].nodeType !== NodeTypes.Path && grid[y][x].nodeType !== NodeTypes.Path) {
-                //if(grid[y+1][x]['nodeType'] !== NodeTypes.Path && grid[y][x]['nodeType'] !== NodeTypes.Path) {
                     wg.addEdge(JSON.stringify({x:x,y:y}), JSON.stringify({x:x, y:y+1}));
                 }
             }
@@ -51,7 +48,7 @@ function createGraph(grid:Node[][]) {
     return wg;
 }
 
-function sleep(ms) {
+export function sleep(ms) {
     return new Promise(resolve => setTimeout(resolve, ms));
 }
 
