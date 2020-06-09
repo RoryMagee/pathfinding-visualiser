@@ -17,7 +17,7 @@ export class NodeGridComponent implements OnInit {
 
     grid:Node[][];
     height = 25;
-    width = 50;
+    width = 51;
     resetGridSubscription:Subscription;
     runPathfindingSubscription;
     createMazeSubscription;

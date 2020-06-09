@@ -56,7 +56,6 @@ function setupGrid(grid:Node[][], startNode:Node, targetNode:Node) {
     grid[grid.length/2][grid[0].length-1]['nodeType'] = NodeTypes.Target;
 }
 
-//TODO: rewrite this piece of shit function ASAP 
 function getValidMoves(grid:Node[][], currentNode:Node) {
     let res:Node[] = []
     let validNodes = [NodeTypes.Path, NodeTypes.Target];
@@ -74,7 +73,7 @@ function getValidMoves(grid:Node[][], currentNode:Node) {
         res.push(grid[y][x-2]);
     }
     //check above
-    if(y-2 > 0 && validNodes.indexOf(grid[y-2][x]?.nodeType) != -1 &&
+    if(y-2 >= 1 && validNodes.indexOf(grid[y-2][x]?.nodeType) != -1 &&
         validNodes.indexOf(grid[y-1][x+1]?.nodeType) != -1 &&
         validNodes.indexOf(grid[y-1][x-1]?.nodeType) != -1) {
         res.push(grid[y-2][x]);
