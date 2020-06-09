@@ -52,6 +52,7 @@ export class NodeGridComponent implements OnInit {
     }
 
     update(x,y,$event) {
+        console.log(x,y);
         if($event.which === 1 && this.grid[x][y]['nodeType'] === NodeTypes.Default && this.dragAndDrop === false) {
             this.grid[x][y]['nodeType'] =  NodeTypes.Path;
         }

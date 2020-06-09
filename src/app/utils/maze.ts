@@ -7,6 +7,7 @@ export function createMaze(grid: Node[][], startNode: Node, targetNode: Node) {
     setupGrid(grid,startNode,targetNode);
     let stack = [];
     recursiveBacktrack(startNode, stack, grid);
+    console.log('bt done');
 }
 
 async function recursiveBacktrack(currentNode, stack, grid) {
@@ -21,24 +22,26 @@ async function recursiveBacktrack(currentNode, stack, grid) {
         let nextNode = validMoves[Math.floor(Math.random() * validMoves.length)];
         stack.push(nextNode);
         if(nextNode.nodeType === NodeTypes.Path) {
-            await sleep(7);
-            nextNode.nodeType = NodeTypes.Default;
+            await sleep(24);
+            travel(currentNode,nextNode, grid);
+            //nextNode.nodeType = NodeTypes.Default;
         }
         recursiveBacktrack(nextNode, stack, grid);
     }
 }
 
-//function recursiveBacktrack(currentNode, stack, grid) {
-//    let validMoves = getValidMoves(grid, JSON.parse(currentNode));
-//    if (validMoves.length == 0) {
-//    } else {
-//        let nextNode = validMoves[Math.floor(Math.random() * validMoves.length)];
-//        stack.push(JSON.stringify(nextNode));
-//        if(nextNode.nodeType === NodeTypes.Path) {
-//            nextNode.nodeType = NodeTypes.Default;
-//        }
-//    }
-//}
+function travel(currentNode:Node, nextNode:Node, grid:Node[][]) {
+    currentNode.nodeType = NodeTypes.Default;
+    nextNode.nodeType = NodeTypes.Default;
+    let y = currentNode.y;
+    let x = currentNode.x;
+    if(x !== nextNode.x) {
+        x = Math.min(x,nextNode.x) + 1;
+    } else {
+        y = Math.min(y,nextNode.y) + 1;
+    }
+    grid[y][x].nodeType = NodeTypes.Default;
+}
 
 //Helper functions
 function setupGrid(grid:Node[][], startNode:Node, targetNode:Node) {
@@ -47,12 +50,13 @@ function setupGrid(grid:Node[][], startNode:Node, targetNode:Node) {
             grid[y][x].nodeType = NodeTypes.Path;
         }
     }
-    startNode['x'] = 0;
-    targetNode['x'] = 48
+    startNode.x = 0;
+    targetNode.x = 48
     grid[grid.length/2][0]['nodeType'] = NodeTypes.Start;
     grid[grid.length/2][grid[0].length-1]['nodeType'] = NodeTypes.Target;
 }
 
+//TODO: rewrite this piece of shit function ASAP 
 function getValidMoves(grid:Node[][], currentNode:Node) {
     let res:Node[] = []
     let validNodes = [NodeTypes.Path, NodeTypes.Target];
@@ -61,54 +65,25 @@ function getValidMoves(grid:Node[][], currentNode:Node) {
     if(x+2 < grid[0].length && validNodes.indexOf(grid[y][x+2]?.nodeType) != -1 &&
         validNodes.indexOf(grid[y+1][x+1]?.nodeType) != -1 &&
         validNodes.indexOf(grid[y-1][x+1]?.nodeType) != -1) {
-        res.push(grid[y][x+1]);
+        res.push(grid[y][x+2]);
     }
     //check left
     if(x-2 < grid[0].length && validNodes.indexOf(grid[y][x-2]?.nodeType) != -1 &&
         validNodes.indexOf(grid[y+1][x-1]?.nodeType) != -1 &&
         validNodes.indexOf(grid[y-1][x-1]?.nodeType) != -1) {
-        res.push(grid[y][x-1]);
+        res.push(grid[y][x-2]);
     }
     //check above
-    if(y-2 >= 0 && validNodes.indexOf(grid[y-2][x]?.nodeType) != -1 &&
+    if(y-2 > 0 && validNodes.indexOf(grid[y-2][x]?.nodeType) != -1 &&
         validNodes.indexOf(grid[y-1][x+1]?.nodeType) != -1 &&
         validNodes.indexOf(grid[y-1][x-1]?.nodeType) != -1) {
-        res.push(grid[currentNode.y-1][currentNode.x]);
+        res.push(grid[y-2][x]);
     }
     //check below
     if(y+2 < grid.length && validNodes.indexOf(grid[y+2][x]?.nodeType) != -1 &&
         validNodes.indexOf(grid[y+1][x+1]?.nodeType) != -1 &&
         validNodes.indexOf(grid[y+1][x-1]?.nodeType) != -1) {
-        res.push(grid[y+1][currentNode.x]);
+        res.push(grid[y+2][x]);
     }
     return res;
 }
-//function getValidMoves(grid:Node[][], currentNode:Node) {
-//    let res:Node[] = []
-//    //check right
-//    let {x,y} = currentNode;
-//    if(x+2 < grid[0].length && grid[y][x+2]?.nodeType === NodeTypes.Path &&
-//        grid[y+1][x+1]?.nodeType === NodeTypes.Path &&
-//        grid[y-1][x+1]?.nodeType === NodeTypes.Path) {
-//        res.push(grid[y][x+1]);
-//    }
-//    //check left
-//    if(x-2 < grid[0].length && grid[y][x-2]?.nodeType === NodeTypes.Path &&
-//        grid[y+1][x-1]?.nodeType === NodeTypes.Path &&
-//        grid[y-1][x-1]?.nodeType === NodeTypes.Path) {
-//        res.push(grid[y][x-1]);
-//    }
-//    //check above
-//    if(y-2 >= 0 && grid[y-2][x]?.nodeType === NodeTypes.Path &&
-//        grid[y-1][x+1]?.nodeType === NodeTypes.Path &&
-//        grid[y-1][x-1]?.nodeType === NodeTypes.Path) {
-//        res.push(grid[currentNode.y-1][currentNode.x]);
-//    }
-//    //check below
-//    if(y+2 < grid.length && grid[y+2][x]?.nodeType === NodeTypes.Path &&
-//        grid[y+1][x+1]?.nodeType === NodeTypes.Path &&
-//        grid[y+1][x-1]?.nodeType === NodeTypes.Path) {
-//        res.push(grid[y+1][currentNode.x]);
-//    }
-//    return res;
-//}

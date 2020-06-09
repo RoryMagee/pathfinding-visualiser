@@ -6,6 +6,7 @@ import { NodeTypes } from '../node-types.enum';
 
 export async function findShortestPath(startNode, targetNode, grid) {
     let wg = createGraph(grid);
+    console.log(wg);
     let result = await shortestPath(wg,grid, startNode, targetNode)
     let path = result.path;
     let searched = result.searched;
