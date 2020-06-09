@@ -18,6 +18,9 @@ export class ControlPanelComponent implements OnInit {
         this.nodeDataService.runPathfindingEvent();
     }
 
+    createMaze() {
+        this.nodeDataService.createMazeEvent(); }
+
     ngOnInit(): void {
     }
 
