@@ -14,7 +14,7 @@ export async function findShortestPath(startNode, targetNode, grid) {
     await animate(grid,path,25,NodeTypes.Visited);
 } 
 
-export async function animate(grid,arr: Array<Node>,speed: Number,nodeType: NodeTypes) {
+export async function animate(grid: Node[][],arr: Node[],speed: Number,nodeType: NodeTypes) {
     for(let x = 0; x < arr.length; x++) {
         if(grid[arr[x].y][arr[x].x].nodeType === NodeTypes.Default || grid[arr[x].y][arr[x].x].nodeType === NodeTypes.Searched) {
             await sleep(speed);

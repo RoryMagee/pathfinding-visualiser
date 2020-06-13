@@ -1,7 +1,6 @@
 import { sleep } from '../pathfinding-algos/dijkstras';
 import { Node } from '../node.Object';
 import { NodeTypes } from '../node-types.enum';
-import { animate } from '../pathfinding-algos/dijkstras'; 
 
 export function createMaze(grid: Node[][], startNode: Node, targetNode: Node) {
     setupGrid(grid,startNode,targetNode);
@@ -10,7 +9,7 @@ export function createMaze(grid: Node[][], startNode: Node, targetNode: Node) {
     console.log('bt done');
 }
 
-async function recursiveBacktrack(currentNode, stack, grid) {
+async function recursiveBacktrack(currentNode:Node, stack:Node[], grid: Node[][]) {
     let validMoves = getValidMoves(grid, currentNode); 
     if(validMoves.length == 0) {
         if(stack.length == 0) {
