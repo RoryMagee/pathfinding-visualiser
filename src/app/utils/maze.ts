@@ -21,7 +21,7 @@ async function recursiveBacktrack(currentNode:Node, stack:Node[], grid: Node[][]
         let nextNode = validMoves[Math.floor(Math.random() * validMoves.length)];
         stack.push(nextNode);
         if(nextNode.nodeType === NodeTypes.Path) {
-            await sleep(24);
+            await sleep(25);
             travel(currentNode,nextNode, grid);
             //nextNode.nodeType = NodeTypes.Default;
         }
@@ -30,7 +30,7 @@ async function recursiveBacktrack(currentNode:Node, stack:Node[], grid: Node[][]
 }
 
 function travel(currentNode:Node, nextNode:Node, grid:Node[][]) {
-    //currentNode.nodeType = NodeTypes.Default;
+    // currentNode.nodeType = NodeTypes.Default;
     nextNode.nodeType = NodeTypes.Default;
     let y = currentNode.y;
     let x = currentNode.x;
@@ -42,7 +42,7 @@ function travel(currentNode:Node, nextNode:Node, grid:Node[][]) {
     grid[y][x].nodeType = NodeTypes.Default;
 }
 
-//Helper functions
+// Helper functions
 function setupGrid(grid:Node[][], startNode:Node, targetNode:Node) {
     for(let y = 0; y < grid.length; y++) {
         for(let x = 0; x < grid[y].length; x++) {
