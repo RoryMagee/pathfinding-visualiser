@@ -6,7 +6,6 @@ export function createMaze(grid: Node[][], startNode: Node, targetNode: Node) {
     setupGrid(grid,startNode,targetNode);
     let stack = [];
     recursiveBacktrack(startNode, stack, grid);
-    console.log('bt done');
 }
 
 async function recursiveBacktrack(currentNode:Node, stack:Node[], grid: Node[][]) {
@@ -23,14 +22,12 @@ async function recursiveBacktrack(currentNode:Node, stack:Node[], grid: Node[][]
         if(nextNode.nodeType === NodeTypes.Path) {
             await sleep(25);
             travel(currentNode,nextNode, grid);
-            //nextNode.nodeType = NodeTypes.Default;
         }
         recursiveBacktrack(nextNode, stack, grid);
     }
 }
 
 function travel(currentNode:Node, nextNode:Node, grid:Node[][]) {
-    // currentNode.nodeType = NodeTypes.Default;
     nextNode.nodeType = NodeTypes.Default;
     let y = currentNode.y;
     let x = currentNode.x;

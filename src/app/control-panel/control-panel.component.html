@@ -1,13 +1,13 @@
-<div class="card control-panel">
-     <div class="row">
-         <div class="col-sm cp-button mx-1" (click)="clearGrid()">
-             <p class="cp-button-text">Clear Grid</p>
-         </div>
-         <div id="main-btn" class="col-sm cp-button mx-1">
-             <p class="cp-button-text" (click)="findPath()">Visualize Algorithm</p>
-         </div>
-         <div class="col-sm cp-button mx-1">
-             <p class="cp-button-text" (click)="createMaze()">Create Maze</p>
-         </div>
-     </div>
-</div>
+<nav class="navbar navbar-expand-md navbar-dark bg-dark">
+        <ul class="nav navbar-nav">
+            <li class="nav-item">
+                <div class="nav-link" (click)="clearGrid()">Clear Grid</div>
+            </li>
+            <li class="nav-item">
+                <div class="nav-link" (click)="findPath()">Find Path</div>
+            </li>
+            <li class="nav-item">
+                <div class="nav-link" (click)="createMaze()">Create Maze</div>
+            </li>
+        </ul> 
+</nav> 

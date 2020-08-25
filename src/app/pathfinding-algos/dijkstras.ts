@@ -4,7 +4,7 @@ import { WeightedGraph } from '../weighted-graph';
 import { Node } from '../node.Object';
 import { NodeTypes } from '../node-types.enum';
 
-export async function findShortestPath(startNode, targetNode, grid) {
+export async function findShortestPath(startNode: Node, targetNode: Node, grid: Node[][]) {
     let wg = createGraph(grid);
     console.log(wg);
     let result = await shortestPath(wg,grid, startNode, targetNode)
@@ -14,7 +14,7 @@ export async function findShortestPath(startNode, targetNode, grid) {
     await animate(grid,path,25,NodeTypes.Visited);
 } 
 
-export async function animate(grid: Node[][],arr: Node[],speed: Number,nodeType: NodeTypes) {
+export async function animate(grid: Node[][],arr: Node[],speed: number,nodeType: NodeTypes) {
     for(let x = 0; x < arr.length; x++) {
         if(grid[arr[x].y][arr[x].x].nodeType === NodeTypes.Default || grid[arr[x].y][arr[x].x].nodeType === NodeTypes.Searched) {
             await sleep(speed);
@@ -49,11 +49,11 @@ function createGraph(grid:Node[][]) {
     return wg;
 }
 
-export function sleep(ms) {
+export function sleep(ms: number) {
     return new Promise(resolve => setTimeout(resolve, ms));
 }
 
-async function shortestPath(wg,grid,start,end) {
+async function shortestPath(wg,grid: Node[][],start: Node,end: Node) {
     const nodes = new BinaryHeap();
     const distances = {};
     const previous = {};
