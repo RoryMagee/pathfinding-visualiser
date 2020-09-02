@@ -31,10 +31,9 @@ async function recursiveBacktrack(currentNode, stack, grid) {
 }
 
 function travel(currentNode:Node, nextNode:Node, grid:Node[][]) {
-    //currentNode.nodeType = NodeTypes.Default;
     nextNode.nodeType = NodeTypes.Default;
-    let y = currentNode.y;
     let x = currentNode.x;
+    let y = currentNode.y;
     if(x !== nextNode.x) {
         x = Math.min(x,nextNode.x) + 1;
     } else {
