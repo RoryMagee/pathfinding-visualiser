@@ -7,7 +7,6 @@ export function createMaze(grid: Node[][], startNode: Node, targetNode: Node) {
     setupGrid(grid,startNode,targetNode);
     let stack = [];
     recursiveBacktrack(startNode, stack, grid);
-    console.log('bt done');
 }
 
 async function recursiveBacktrack(currentNode, stack, grid) {
